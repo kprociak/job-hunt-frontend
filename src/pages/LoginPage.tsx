@@ -1,15 +1,18 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import TextInput from "../components/UI/TextInput";
 import CenterDiv from "../components/UI/CenterDiv";
 import Button from "../components/UI/Button";
 import {useDispatch} from "react-redux";
 import {updateUser} from "../redux/slices/UserSlice";
 import {useNavigate} from "react-router-dom";
+import {FlashMessageContext} from "../components/flashMessages/FlashMessagePovider";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const {addMessage} = useContext(FlashMessageContext)
 
   const dispatch = useDispatch();
 
@@ -19,7 +22,7 @@ export default function LoginPage() {
     e.preventDefault();
     if (!email || !password) {
       //todo: show error flash message
-      console.log("Please fill in all fields");
+      addMessage("Please fill in all fields", "error");
       return;
     }
 

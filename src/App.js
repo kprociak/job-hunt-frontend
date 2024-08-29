@@ -7,6 +7,7 @@ import SignupPage from "./pages/SignupPage";
 import DashboardPage from "./pages/DashboardPage";
 import {Provider as ReduxProvider} from "react-redux";
 import store from "./redux/store";
+import {FlashMessageProvider} from "./components/flashMessages/FlashMessagePovider";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <ReduxProvider store={store}>
-      <RouterProvider router={router} />
+      <FlashMessageProvider>
+        <RouterProvider router={router} />
+      </FlashMessageProvider>
     </ReduxProvider>
   );
 }
