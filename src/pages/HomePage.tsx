@@ -1,7 +1,7 @@
 import React from 'react';
-import ButtonLink from "../components/UI/buttonLink";
+import ButtonLink from "../components/UI/ButtonLink";
 import CenterDiv from "../components/UI/CenterDiv";
-export default function Home() {
+export default function HomePage() {
   return (
     <CenterDiv>
       <div>
