@@ -2,9 +2,18 @@ import React, {useState} from 'react'
 import TextInput from "../components/UI/TextInput";
 import CenterDiv from "../components/UI/CenterDiv";
 import Button from "../components/UI/Button";
+import {useDispatch} from "react-redux";
+import {updateUser} from "../redux/slices/UserSlice";
+import {useNavigate} from "react-router-dom";
+
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,6 +23,8 @@ export default function LoginPage() {
       return;
     }
 
+    setLoading(true);
+
     fetch(`${process.env.REACT_APP_BACKEND_URL}login`, {
       method: "POST",
       headers: {
@@ -21,15 +32,27 @@ export default function LoginPage() {
       },
       body: JSON.stringify({email, password})
     })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("Invalid credentials");
+        }
+        return res;
+      })
       .then(res => res.json())
       .then(data => {
         if (data.error) {
+          setLoading(false);
           console.log(data.error);
         }
-        console.log(data);
+
+        localStorage.setItem("token", data.access_token);
+        dispatch(updateUser({email: data.email, name: data.name}));
+        navigate("/dashboard");
+
       })
       .catch(err => {
         console.log(err);
+        setLoading(false);
       });
   }
 
@@ -42,7 +65,7 @@ export default function LoginPage() {
         <TextInput label={"Email"} placeholder={"Email"} value={email} onChange={setEmail} type={"email"}/>
         <TextInput label={"Password"} placeholder={"******"} value={password} onChange={setPassword} type={"password"}/>
         <div className={"mt-4"}>
-          <Button className={"w-full"} type={"submit"}>Log in</Button>
+          <Button className={"w-full"} type={"submit"} disabled={loading}>Log in</Button>
         </div>
       </form>
     </CenterDiv>
