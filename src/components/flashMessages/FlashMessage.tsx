@@ -6,13 +6,13 @@ import {FlashMessageType} from "./FlashMessagePovider";
 
 export default function FlashMessage({message, type}: FlashMessageType) {
   const colors = {
-    error: "bg-red-300 text-red-800",
-    success: "bg-green-300 text-green-800",
-    info: "bg-blue-300 text-blue-800",
+    error: "bg-red-300 text-red-700 border-red-700",
+    success: "bg-green-300 text-green-700 border-green-700",
+    info: "bg-blue-300 text-blue-700 border-blue-700",
   };
 
   return (
-    <div className={`rounded-xl px-4 py-2 ${colors[type]}`}>
+    <div className={`rounded-xl px-4 py-2 border ${colors[type]}`}>
       {message}
     </div>
   );

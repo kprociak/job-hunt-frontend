@@ -5,6 +5,7 @@ import CenterDiv from "../components/UI/CenterDiv";
 import {useDispatch} from "react-redux";
 import {updateUser} from "../redux/slices/UserSlice";
 import {useNavigate} from "react-router-dom";
+import {FlashMessageContext} from "../components/flashMessages/FlashMessagePovider";
 
 export default function SignupPage() {
   const [email, setEmail] = React.useState("");
@@ -14,6 +15,7 @@ export default function SignupPage() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {addMessage} = React.useContext(FlashMessageContext);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,35 +24,37 @@ export default function SignupPage() {
       console.log("Please fill in all fields");
     }
 
-    fetch(`${process.env.REACT_APP_BACKEND_URL}register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({email, password, name})
-    })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error("Invalid credentials");
-        }
-        return res;
-      })
-      .then(res => res.json())
-      .then(data => {
+    setLoading(true);
+    (async () => {
+      try{
+        const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}register`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({email, password, name})
+        });
+
+        const data = await res.json();
+
         if (data.error) {
+          setLoading(false);
           console.log(data.error);
+          return;
         }
 
         localStorage.setItem("token", data.access_token);
         dispatch(updateUser({email: data.email, name: data.name}));
         navigate("/dashboard");
 
-        console.log(data);
-      })
-      .catch(err => {
+      }
+      catch(err){
+        addMessage("Something went wrong", "error");
+        setLoading(false);
         console.log(err);
-    });
+      }
 
+    })();
   }
 
   return (
@@ -63,7 +67,7 @@ export default function SignupPage() {
         <TextInput label={"Password"} placeholder={"******"} value={password} onChange={setPassword} type={"password"}/>
         <TextInput label={"Name"} placeholder={"John Doe"} value={name} onChange={setName} />
         <div className={"mt-4"}>
-          <Button className={"w-full"} type={"submit"}>Sign up</Button>
+          <Button className={"w-full"} type={"submit"} disabled={loading}>Sign up</Button>
         </div>
       </form>
     </CenterDiv>

@@ -28,35 +28,33 @@ export default function LoginPage() {
 
     setLoading(true);
 
-    fetch(`${process.env.REACT_APP_BACKEND_URL}login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({email, password})
-    })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error("Invalid credentials");
-        }
-        return res;
-      })
-      .then(res => res.json())
-      .then(data => {
+    (async () => {
+      try {
+        const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({email, password})
+        })
+
+        const data = await res.json();
         if (data.error) {
           setLoading(false);
-          console.log(data.error);
+          addMessage(data.error, "error");
+          return;
         }
 
         localStorage.setItem("token", data.access_token);
         dispatch(updateUser({email: data.email, name: data.name}));
         navigate("/dashboard");
-
-      })
-      .catch(err => {
-        console.log(err);
+      }
+      catch (err) {
+        addMessage("Something went wrong", "error");
         setLoading(false);
-      });
+      }
+
+    })();
   }
 
   return (
