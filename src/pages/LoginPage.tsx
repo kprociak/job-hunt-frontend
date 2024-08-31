@@ -60,7 +60,7 @@ export default function LoginPage() {
   return (
     <CenterDiv>
       <div>
-        <h1 className={"font-bold text-2xl my-2"}>Log In</h1>
+        <h1 className={"font-bold text-2xl my-2"}>Log in</h1>
       </div>
       <form onSubmit={handleSubmit}>
         <TextInput label={"Email"} placeholder={"Email"} value={email} onChange={setEmail} type={"email"}/>

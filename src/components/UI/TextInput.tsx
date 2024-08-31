@@ -5,7 +5,7 @@ interface TextInputProps {
   placeholder: string;
   value: string;
   onChange: (value: string) => void;
-  type?: "text" | "password" | "email";
+  type?: "text" | "password" | "email" | "date";
 }
 export default function TextInput({label, placeholder, value, onChange, type}: TextInputProps) {
   return (

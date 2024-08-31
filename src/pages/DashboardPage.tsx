@@ -2,6 +2,9 @@ import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {updateUser} from "../redux/slices/UserSlice";
+import JobApplicationSlice from "../redux/slices/JobApplicationSlice";
+import ApplicationList from "../components/dashboard/applicationList/ApplicationList";
+import NewApplicationForm from "../components/dashboard/newApplicationForm";
 
 export default function DashboardPage() {
   //@ts-ignore
@@ -59,9 +62,12 @@ export default function DashboardPage() {
           <button>Log out</button>
         </div>
       </div>
-      <div className={"flex"}>
-        <div>
-
+      <div className={"flex p-10"}>
+        <div className={"basis-1/2"}>
+          <ApplicationList />
+        </div>
+        <div className={"basis-1/2"}>
+          <NewApplicationForm />
         </div>
       </div>
     </div>

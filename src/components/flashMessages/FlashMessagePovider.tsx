@@ -38,7 +38,7 @@ export const FlashMessageProvider: React.FC<FlashMessageProviderProps> = ({child
     <FlashMessageContext.Provider value={{ messages, addMessage }}>
       <div className={"absolute left-1/2 -translate-x-1/2 top-10"}>
         {messages.map((message) => (
-          <FlashMessage id={message.id} message={message.message} type={message.type} />
+          <FlashMessage key={message.id} id={message.id} message={message.message} type={message.type} />
         ))}
       </div>
       {children}

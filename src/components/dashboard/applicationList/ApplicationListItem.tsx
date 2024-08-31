@@ -1,8 +1,20 @@
 import React from 'react';
-export default function ApplicationListItem() {
+import {JobApplicationType} from "../../../types/JobApplicationType";
+
+export interface ApplicationListItemProps {
+  application: JobApplicationType;
+}
+export default function ApplicationListItem({application}: ApplicationListItemProps) {
   return (
     <div>
-      <h1>Application List Item</h1>
+      <div className="flex justify-between">
+        <h2>{application.companyName}</h2>
+        <h3>{application.position}</h3>
+      </div>
+      <div>
+        <p>Status: {application.status}</p>
+        <p>Application Date: {application.ApplicationDate}</p>
+      </div>
     </div>
   );
 }

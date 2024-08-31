@@ -60,6 +60,9 @@ export default function SignupPage() {
   return (
     <CenterDiv>
       <div>
+        <img src={"/resume.png"} className={"w-12"}/>
+      </div>
+      <div>
         <h1 className={"font-bold text-2xl my-2"}>Sign up!</h1>
       </div>
       <form onSubmit={handleSubmit}>
