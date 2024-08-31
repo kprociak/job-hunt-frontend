@@ -2,6 +2,8 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {FlashMessageContext} from "../../flashMessages/FlashMessagePovider";
 import {loadJobApplications} from "../../../redux/slices/JobApplicationSlice";
+import ApplicationListItem from "./ApplicationListItem";
+import {JobApplicationType} from "../../../types/JobApplicationType";
 
 export default function ApplicationList() {
   const dispatch = useDispatch();
@@ -23,7 +25,19 @@ export default function ApplicationList() {
         }
         const data = await res.json();
 
-        dispatch(loadJobApplications(data.jobApplications));
+        dispatch(loadJobApplications(data.jobApplications.map((application: any) => ({
+            companyName: application.company_name,
+            position: application.job_title,
+            status: application.status,
+            applicationDate: application.application_date,
+            id: application.id,
+            offerUrl: application.offer_url,
+            offeredSalaryFrom: application.offered_salary_from,
+            offeredSalaryTo: application.offered_salary_to,
+            expectedSalaryFrom: application.expected_salary_from,
+            expectedSalaryTo: application.expected_salary_to,
+            notes: application.notes
+        }))));
 
         console.log(data);
       } catch (e) {
@@ -36,9 +50,11 @@ export default function ApplicationList() {
     <div>
       <h2 className="text-2xl">Your applications</h2>
       {applications?.length > 0 ? (
-        <ul>
-
-        </ul>
+        <div className={""}>
+          {applications.map((application: JobApplicationType) => (
+            <ApplicationListItem application={application} key={application.id} />
+          ))}
+        </div>
       ) : (
         <p>No applications found</p>
       )}

@@ -6,10 +6,10 @@ export interface ApplicationListItemProps {
 }
 export default function ApplicationListItem({application}: ApplicationListItemProps) {
   return (
-    <div>
-      <div className="flex justify-between">
-        <h2>{application.companyName}</h2>
-        <h3>{application.position}</h3>
+    <div className={"flex justify-between p-4 my-2 bg-gray-50 rounded-2xl"}>
+      <div className="">
+        <h3 className={"text-lg font-semibold"}>{application.companyName}</h3>
+        <h4>{application.position}</h4>
       </div>
       <div>
         <p>Status: {application.status}</p>

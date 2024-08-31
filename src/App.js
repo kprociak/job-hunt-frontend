@@ -8,6 +8,7 @@ import DashboardPage from "./pages/DashboardPage";
 import {Provider as ReduxProvider} from "react-redux";
 import store from "./redux/store";
 import {FlashMessageProvider} from "./components/flashMessages/FlashMessagePovider";
+import FAQPage from "./pages/FAQPage";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,12 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardPage />,
+  },
+  {
+    path: "/faq",
+    element: <FAQPage />,
   }
+
 ])
 
 function App() {

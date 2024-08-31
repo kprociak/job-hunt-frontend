@@ -53,7 +53,7 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <div className={"flex justify-between items-ceneter w-full p-4"}>
+      <div className={"flex justify-between items-center w-full p-4"}>
         <div className={"flex items-center"}>
           <img src={"/resume.png"} className={"w-10"}/>
           <div className={"px-4"}>Hi, {user.name}</div>
@@ -62,7 +62,7 @@ export default function DashboardPage() {
           <button>Log out</button>
         </div>
       </div>
-      <div className={"flex p-10"}>
+      <div className={"flex p-10 gap-10"}>
         <div className={"basis-1/2"}>
           <ApplicationList />
         </div>
