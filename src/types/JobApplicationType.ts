@@ -5,6 +5,6 @@ export type JobApplicationType = {
   position: string;
   offerUrl: string;
   status: "applied" | "interview" | "rejected";
-  ApplicationDate: string;
+  applicationDate: string;
   notes: string;
 }

@@ -5,6 +5,8 @@ import Button from "../UI/Button";
 import SalaryInput from "../UI/SalaryInput";
 import Textarea from "../UI/Textarea";
 import {FlashMessageContext} from "../flashMessages/FlashMessagePovider";
+import {useDispatch} from "react-redux";
+import {addJobApplication} from "../../redux/slices/JobApplicationSlice";
 export default function NewApplicationForm(){
   const [companyName, setCompanyName] = useState("");
   const [jobTitle, setJobTitle] = useState("");
@@ -16,10 +18,17 @@ export default function NewApplicationForm(){
   const [expectedSalaryTo, setExpectedSalaryTo] = useState(0);
   const [notes, setNotes] = useState("");
 
+  const [loading, setLoading] = useState(false);
+
   const {addMessage} = useContext(FlashMessageContext);
+
+  const dispatch = useDispatch();
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    setLoading(true);
     (async () => {
       try {
         const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}job-applications`, {
@@ -47,6 +56,34 @@ export default function NewApplicationForm(){
         }
 
         addMessage("Application submitted", "success");
+
+        const data = await res.json();
+        const application = data.jobApplication;
+
+        dispatch(addJobApplication({
+          companyName: application.company_name,
+          position: application.job_title,
+          status: application.status,
+          applicationDate: application.application_date	,
+          id: application.id,
+          offerUrl: application.offer_url,
+          offeredSalaryFrom: application.offered_salary_from,
+          offeredSalaryTo: application.offered_salary_to,
+          expectedSalaryFrom: application.expected_salary_from,
+          expectedSalaryTo: application.expected_salary_to,
+          notes: application.notes
+        }));
+
+        setLoading(false);
+        setCompanyName("");
+        setJobTitle("");
+        setOfferUrl("");
+        setApplicationDate(format(new Date(), "yyyy-MM-dd"));
+        setOfferSalaryFrom(0);
+        setOfferSalaryTo(0);
+        setExpectedSalaryFrom(0);
+        setExpectedSalaryTo(0);
+        setNotes("");
 
       } catch (e) {
         addMessage("Error submitting application", "error");

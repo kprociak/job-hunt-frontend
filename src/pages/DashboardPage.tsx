@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {updateUser} from "../redux/slices/UserSlice";
 import JobApplicationSlice from "../redux/slices/JobApplicationSlice";
 import ApplicationList from "../components/dashboard/applicationList/ApplicationList";
 import NewApplicationForm from "../components/dashboard/newApplicationForm";
+import ApplicationDetails from "../components/dashboard/ApplicationDetails";
 
 export default function DashboardPage() {
   //@ts-ignore
@@ -12,6 +13,8 @@ export default function DashboardPage() {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+
+  const [selectedApplicationId, setSelectedApplicationId] = useState<number | null>(null);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -64,10 +67,14 @@ export default function DashboardPage() {
       </div>
       <div className={"flex p-10 gap-10"}>
         <div className={"basis-1/2"}>
-          <ApplicationList />
+          <ApplicationList selectedApplicationId={selectedApplicationId} setSelectedApplicationId={setSelectedApplicationId}/>
         </div>
         <div className={"basis-1/2"}>
-          <NewApplicationForm />
+          {selectedApplicationId ? (
+            <ApplicationDetails applicationId={selectedApplicationId} />
+          ) : (
+            <NewApplicationForm />
+          )}
         </div>
       </div>
     </div>

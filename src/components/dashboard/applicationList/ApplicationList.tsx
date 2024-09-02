@@ -4,8 +4,14 @@ import {FlashMessageContext} from "../../flashMessages/FlashMessagePovider";
 import {loadJobApplications} from "../../../redux/slices/JobApplicationSlice";
 import ApplicationListItem from "./ApplicationListItem";
 import {JobApplicationType} from "../../../types/JobApplicationType";
+import Button from "../../UI/Button";
 
-export default function ApplicationList() {
+interface ApplicationListProps {
+  selectedApplicationId: number | null;
+  setSelectedApplicationId: (id: number | null) => void;
+}
+
+export default function ApplicationList({selectedApplicationId, setSelectedApplicationId}: ApplicationListProps) {
   const dispatch = useDispatch();
   // @ts-ignore
   const applications = useSelector((state) => state.jobApplications.jobApplications);
@@ -29,7 +35,7 @@ export default function ApplicationList() {
             companyName: application.company_name,
             position: application.job_title,
             status: application.status,
-            applicationDate: application.application_date,
+            applicationDate: application.application_date	,
             id: application.id,
             offerUrl: application.offer_url,
             offeredSalaryFrom: application.offered_salary_from,
@@ -48,11 +54,19 @@ export default function ApplicationList() {
 
   return (
     <div>
-      <h2 className="text-2xl">Your applications</h2>
+      <div className={"flex justify-between mb-6"}>
+        <h2 className="text-2xl">Your applications</h2>
+        <Button onClick={() => setSelectedApplicationId(null)}>Add new application</Button>
+      </div>
       {applications?.length > 0 ? (
         <div className={""}>
           {applications.map((application: JobApplicationType) => (
-            <ApplicationListItem application={application} key={application.id} />
+            <ApplicationListItem
+              application={application}
+              key={application.id}
+              selected={selectedApplicationId === application.id}
+              onClick={() => setSelectedApplicationId(application.id)}
+            />
           ))}
         </div>
       ) : (
