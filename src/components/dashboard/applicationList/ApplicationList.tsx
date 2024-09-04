@@ -26,43 +26,6 @@ export default function ApplicationList({selectedApplication, setSelectedApplica
   } = useGetJobApplicationsQuery()
 
 
-  /*useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}job-applications`, {
-          headers: {
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-          }
-        });
-        if (!res.ok) {
-          addMessage("Error fetching applications", "error");
-          return;
-        }
-        const data = await res.json();
-
-        dispatch(loadJobApplications(data.jobApplications.map((application: any) => ({
-            companyName: application.company_name,
-            position: application.job_title,
-            status: application.status,
-            applicationDate: application.application_date	,
-            id: application.id,
-            offerUrl: application.offer_url,
-            offeredSalaryFrom: application.offered_salary_from,
-            offeredSalaryTo: application.offered_salary_to,
-            expectedSalaryFrom: application.expected_salary_from,
-            expectedSalaryTo: application.expected_salary_to,
-            notes: application.notes
-        }))));
-
-        console.log(data);
-      } catch (e) {
-        console.log(e);
-      }
-    })();
-  }, []);*/
-
-  // @ts-ignore
-  console.log(applications.jobApplications);
   return (
     <div>
       <div className={"flex justify-between mb-6"}>

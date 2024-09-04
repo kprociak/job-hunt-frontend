@@ -1,6 +1,7 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {JobApplication} from "../../types/JobApplication";
+import RecruitmentEvents from "./RecruitmentEvets";
 
 interface ApplicationDetailsProps {
   application: JobApplication;
@@ -29,10 +30,15 @@ export default function ApplicationDetails({application}: ApplicationDetailsProp
       <div className={"mb-6"}>
         <h2 className={"text-2xl"}>Application Details</h2>
       </div>
-      <ApplicationDetailsField label={"Company Name"} value={application.company_name} />
-      <ApplicationDetailsField label={"Position"} value={application.job_title} />
-      <ApplicationDetailsField label={"Offer URL"} value={application.offer_url} isLink={true}/>
-      <ApplicationDetailsField label={"Status"} value={application.status} />
+      <div>
+        <ApplicationDetailsField label={"Company Name"} value={application.company_name} />
+        <ApplicationDetailsField label={"Position"} value={application.job_title} />
+        <ApplicationDetailsField label={"Offer URL"} value={application.offer_url} isLink={true}/>
+        <ApplicationDetailsField label={"Status"} value={application.status} />
+      </div>
+      <div>
+        <RecruitmentEvents JobApplicationId={application.id}/>
+      </div>
     </div>
   );
 }

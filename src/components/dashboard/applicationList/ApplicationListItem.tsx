@@ -7,9 +7,17 @@ export interface ApplicationListItemProps {
   onClick: () => void;
 }
 export default function ApplicationListItem({application, selected, onClick}: ApplicationListItemProps) {
+
+  const colors = {
+    new: 'bg-gray-50',
+    ongoing: 'bg-yellow-50',
+    rejected: 'bg-red-50',
+    accepted: 'bg-green-50',
+  }
+
   return (
     <div
-      className={`flex justify-between p-4 my-2 rounded-2xl ${selected ? 'bg-sky-200' : 'bg-gray-50'}`}
+      className={`flex justify-between p-4 my-2 rounded-2xl ${colors[application.status]} ${selected ? 'border border-gray-300 shadow-lg' : ''}`}
       onClick={onClick}
     >
       <div className="">

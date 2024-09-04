@@ -1,0 +1,1 @@
+export type RecruitmentEventType = "phone_call" | "job_interview" | "technical_interview" | "coding_test" | "coding_assignment" | "offer" | "rejection";
