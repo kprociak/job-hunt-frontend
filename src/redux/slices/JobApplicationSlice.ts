@@ -1,8 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {JobApplicationType} from "../../types/JobApplicationType";
+import {JobApplication} from "../../types/JobApplication";
 
 const initialState = {
-  jobApplications: <JobApplicationType[]>[],
+  jobApplications: <JobApplication[]>[],
 }
 
 const jobApplicationSlice = createSlice({

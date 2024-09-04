@@ -6,6 +6,7 @@ import JobApplicationSlice from "../redux/slices/JobApplicationSlice";
 import ApplicationList from "../components/dashboard/applicationList/ApplicationList";
 import NewApplicationForm from "../components/dashboard/newApplicationForm";
 import ApplicationDetails from "../components/dashboard/ApplicationDetails";
+import {JobApplication} from "../types/JobApplication";
 
 export default function DashboardPage() {
   //@ts-ignore
@@ -14,7 +15,7 @@ export default function DashboardPage() {
 
   const dispatch = useDispatch();
 
-  const [selectedApplicationId, setSelectedApplicationId] = useState<number | null>(null);
+  const [selectedApplication, setSelectedApplication] = useState<JobApplication | null>(null);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -67,11 +68,11 @@ export default function DashboardPage() {
       </div>
       <div className={"flex p-10 gap-10"}>
         <div className={"basis-1/2"}>
-          <ApplicationList selectedApplicationId={selectedApplicationId} setSelectedApplicationId={setSelectedApplicationId}/>
+          <ApplicationList selectedApplication={selectedApplication} setSelectedApplication={setSelectedApplication}/>
         </div>
         <div className={"basis-1/2"}>
-          {selectedApplicationId ? (
-            <ApplicationDetails applicationId={selectedApplicationId} />
+          {selectedApplication ? (
+            <ApplicationDetails application={selectedApplication} />
           ) : (
             <NewApplicationForm />
           )}

@@ -1,23 +1,32 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {FlashMessageContext} from "../../flashMessages/FlashMessagePovider";
-import {loadJobApplications} from "../../../redux/slices/JobApplicationSlice";
+import JobApplicationSlice, {loadJobApplications} from "../../../redux/slices/JobApplicationSlice";
 import ApplicationListItem from "./ApplicationListItem";
-import {JobApplicationType} from "../../../types/JobApplicationType";
+import {JobApplication} from "../../../types/JobApplication";
 import Button from "../../UI/Button";
+import {useGetJobApplicationsQuery} from "../../../redux/api/apiSlice";
 
 interface ApplicationListProps {
-  selectedApplicationId: number | null;
-  setSelectedApplicationId: (id: number | null) => void;
+  selectedApplication: JobApplication | null;
+  setSelectedApplication: (application: JobApplication | null) => void;
 }
 
-export default function ApplicationList({selectedApplicationId, setSelectedApplicationId}: ApplicationListProps) {
-  const dispatch = useDispatch();
+export default function ApplicationList({selectedApplication, setSelectedApplication}: ApplicationListProps) {
+  //const dispatch = useDispatch();
   // @ts-ignore
-  const applications = useSelector((state) => state.jobApplications.jobApplications);
+  //const applications = useSelector((state) => state.jobApplications.jobApplications);
   const {addMessage} = React.useContext(FlashMessageContext);
 
-  useEffect(() => {
+  const {
+    data: applications = [],
+    isLoading,
+    isSuccess,
+    error
+  } = useGetJobApplicationsQuery()
+
+
+  /*useEffect(() => {
     (async () => {
       try {
         const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}job-applications`, {
@@ -50,22 +59,27 @@ export default function ApplicationList({selectedApplicationId, setSelectedAppli
         console.log(e);
       }
     })();
-  }, []);
+  }, []);*/
 
+  // @ts-ignore
+  console.log(applications.jobApplications);
   return (
     <div>
       <div className={"flex justify-between mb-6"}>
         <h2 className="text-2xl">Your applications</h2>
-        <Button onClick={() => setSelectedApplicationId(null)}>Add new application</Button>
+        <Button onClick={() => setSelectedApplication(null)}>Add new application</Button>
       </div>
-      {applications?.length > 0 ? (
+      {isLoading && <p>Loading...</p>}
+      { // @ts-ignore
+        applications?.jobApplications?.length > 0 ? (
         <div className={""}>
-          {applications.map((application: JobApplicationType) => (
+          { // @ts-ignore
+            applications?.jobApplications?.map((application: JobApplication) => (
             <ApplicationListItem
               application={application}
               key={application.id}
-              selected={selectedApplicationId === application.id}
-              onClick={() => setSelectedApplicationId(application.id)}
+              selected={selectedApplication?.id === application.id}
+              onClick={() => setSelectedApplication(application)}
             />
           ))}
         </div>

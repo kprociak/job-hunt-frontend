@@ -1,8 +1,9 @@
 import React from 'react';
 import {useSelector} from "react-redux";
+import {JobApplication} from "../../types/JobApplication";
 
 interface ApplicationDetailsProps {
-  applicationId: number;
+  application: JobApplication;
 }
 
 interface ApplicationDetailsFieldProps {
@@ -21,17 +22,16 @@ function ApplicationDetailsField({label, value, isLink}: ApplicationDetailsField
   );
 }
 
-export default function ApplicationDetails({applicationId}: ApplicationDetailsProps) {
-  const application = useSelector((state: any) => state.jobApplications.jobApplications.find((app: any) => app.id === applicationId));
+export default function ApplicationDetails({application}: ApplicationDetailsProps) {
 
   return (
     <div>
       <div className={"mb-6"}>
         <h2 className={"text-2xl"}>Application Details</h2>
       </div>
-      <ApplicationDetailsField label={"Company Name"} value={application.companyName} />
-      <ApplicationDetailsField label={"Position"} value={application.position} />
-      <ApplicationDetailsField label={"Offer URL"} value={application.offerUrl} isLink={true}/>
+      <ApplicationDetailsField label={"Company Name"} value={application.company_name} />
+      <ApplicationDetailsField label={"Position"} value={application.job_title} />
+      <ApplicationDetailsField label={"Offer URL"} value={application.offer_url} isLink={true}/>
       <ApplicationDetailsField label={"Status"} value={application.status} />
     </div>
   );
