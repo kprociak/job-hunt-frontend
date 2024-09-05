@@ -19,7 +19,10 @@ export default function HomePage() {
         <ButtonLink to={"/signup"}>Sign up</ButtonLink>
       </div>
       <div className="pt-20">
-        <p className="text-sm text-gray-500">&copy; Krzysztof Prociak</p>
+        <p className="text-sm text-gray-500">
+          &copy;
+          <a href={"https://github.com/kprociak"} target={"_blank"}>Krzysztof Prociak</a>
+        </p>
       </div>
     </CenterDiv>
   );
