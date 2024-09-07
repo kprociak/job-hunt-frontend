@@ -9,7 +9,7 @@ const questions = [
   },
   {
     question: "How do I use this app?",
-    answer: "Simply sign up, log in, and start adding applications. You can add as many as you want, and update them as you go through the application process.",
+    answer: "Simply sign up, and start adding applications. You can add as many as you want, and update them as you go through the application process.",
   },
   {
     question: "How much does it cost?",

@@ -7,15 +7,18 @@ import ApplicationList from "../components/dashboard/applicationList/Application
 import NewApplicationForm from "../components/dashboard/newApplicationForm";
 import ApplicationDetails from "../components/dashboard/ApplicationDetails";
 import {JobApplication} from "../types/JobApplication";
+import useUser from "../hooks/useUser";
 
 export default function DashboardPage() {
   //@ts-ignore
-  const user = useSelector((state) => state.user);
+  //const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   const [selectedApplication, setSelectedApplication] = useState<JobApplication | null>(null);
+
+  const {user, userError} = useUser();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -24,34 +27,8 @@ export default function DashboardPage() {
   }
 
   useEffect(() => {
-    if (!user.email) {
-      if (localStorage.getItem("token")){
-        fetch(`${process.env.REACT_APP_BACKEND_URL}me`, {
-          headers: {
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-          }
-        })
-          .then(res => {
-            if (!res.ok) {
-              throw new Error("Invalid token");
-            }
-            return res;
-          })
-          .then(res => res.json())
-          .then(data => {
-            dispatch(updateUser({email: data.email, name: data.name}));
-          })
-          .catch(err => {
-            console.log(err);
-            navigate("/login");
-        })
-      }
-      else {
-        navigate("/login");
-      }
-    }
-    else {
-      console.log("User found, welcome!");
+    if (userError) {
+      navigate("/login");
     }
   }, [user]);
 
