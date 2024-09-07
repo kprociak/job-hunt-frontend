@@ -54,7 +54,7 @@ export default function ApplicationList({selectedApplication, setSelectedApplica
       // @ts-ignore
       return new Date(b[orderBy]).getTime() - new Date(a[orderBy]).getTime();
     });
-  }, [filteredApplications]);
+  }, [filteredApplications, orderBy]);
 
 
 
