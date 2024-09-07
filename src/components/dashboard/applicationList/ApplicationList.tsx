@@ -19,6 +19,12 @@ export default function ApplicationList({selectedApplication, setSelectedApplica
   //const applications = useSelector((state) => state.jobApplications.jobApplications);
   const {addMessage} = useContext(FlashMessageContext);
   const [searchPhrase, setSearchPhrase] = useState("");
+  const [orderBy, setOrderBy] = useState<"application_date" | "last_update_date">("application_date");
+
+  const sortOptions = [
+    {label: "Application date", value: "application_date"},
+    {label: "Last update", value: "last_update_date"},
+  ];
 
   const {
     data: applications = [],
@@ -42,34 +48,57 @@ export default function ApplicationList({selectedApplication, setSelectedApplica
     });
   }, [applications, searchPhrase]);
 
+  const sortedApplications = useCallback(() => {
+    // @ts-ignore
+    return filteredApplications().toSorted((a: JobApplication, b: JobApplication) => {
+      // @ts-ignore
+      return new Date(b[orderBy]).getTime() - new Date(a[orderBy]).getTime();
+    });
+  }, [filteredApplications]);
+
 
 
   return (
     <div>
       <div className={"flex justify-between items-center gap-2 mb-6"}>
         <h2 className="text-2xl">Your applications</h2>
-        <div className={"flex-grow"}>
+        <div className={""}>
           <TextInput label={""} placeholder={"Search by company"} value={searchPhrase} onChange={setSearchPhrase} />
+        </div>
+        <div className={"flex-grow"}>
+          <select
+            value={orderBy}
+            onChange={(e) => setOrderBy(e.target.value as "application_date" | "last_update_date")}
+            className={"p-1.5 border border-gray-300 rounded-md"}
+          >
+            {sortOptions.map(option => (
+              <option key={option.value} value={option.value}>{option.label}</option>
+            ))}
+          </select>
         </div>
         <Button onClick={() => setSelectedApplication(null)}>Add new application</Button>
       </div>
-      {isLoading && <p>Loading...</p>}
-      { // @ts-ignore
-        applications?.jobApplications?.length > 0 ? (
-        <div className={""}>
+      {isLoading ?
+        <p>Loading...</p> : (
+          <div>
           { // @ts-ignore
-            filteredApplications().map((application: JobApplication) => (
-            <ApplicationListItem
-              application={application}
-              key={application.id}
-              selected={selectedApplication?.id === application.id}
-              onClick={() => setSelectedApplication(application)}
-            />
-          ))}
-        </div>
-      ) : (
-        <p>No applications found</p>
-      )}
+            applications?.jobApplications?.length > 0 ? (
+            <div className={"h-full overflow-y-scroll no-scrollbar"}>
+              { // @ts-ignore
+                sortedApplications().map((application: JobApplication) => (
+                <ApplicationListItem
+                  application={application}
+                  key={application.id}
+                  selected={selectedApplication?.id === application.id}
+                  onClick={() => setSelectedApplication(application)}
+                />
+              ))}
+            </div>
+          ) : (
+            <p>No applications found</p>
+          )}
+          </div>
+        )}
     </div>
   );
 }

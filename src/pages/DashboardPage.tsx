@@ -33,21 +33,21 @@ export default function DashboardPage() {
   }, [user]);
 
   return (
-    <div>
+    <div className={"flex flex-col h-screen"}>
       <div className={"flex justify-between items-center w-full p-4"}>
         <div className={"flex items-center"}>
-          <img src={"/resume.png"} className={"w-10"}/>
+          <img src={"/resume.png"} className={"w-10"} alt={"JobHunt Logo"}/>
           <div className={"px-4"}>Hi, {user.name}</div>
         </div>
         <div>
           <button>Log out</button>
         </div>
       </div>
-      <div className={"flex p-10 gap-10"}>
+      <div className={"flex px-10 gap-10 max-h-full"}>
         <div className={"basis-1/2"}>
           <ApplicationList selectedApplication={selectedApplication} setSelectedApplication={setSelectedApplication}/>
         </div>
-        <div className={"basis-1/2"}>
+        <div className={"basis-1/2  h-full overflow-y-scroll no-scrollbar"}>
           {selectedApplication ? (
             <ApplicationDetails application={selectedApplication} />
           ) : (
