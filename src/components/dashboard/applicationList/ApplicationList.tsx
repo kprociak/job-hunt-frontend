@@ -59,7 +59,7 @@ export default function ApplicationList({selectedApplication, setSelectedApplica
 
 
   return (
-    <div>
+    <div className={"h-full"}>
       <div className={"flex justify-between items-center gap-2 mb-6"}>
         <h2 className="text-2xl">Your applications</h2>
         <div className={""}>
@@ -80,7 +80,7 @@ export default function ApplicationList({selectedApplication, setSelectedApplica
       </div>
       {isLoading ?
         <p>Loading...</p> : (
-          <div>
+          <div className={"h-4/5"}>
           { // @ts-ignore
             applications?.jobApplications?.length > 0 ? (
             <div className={"h-full overflow-y-scroll no-scrollbar"}>

@@ -43,8 +43,8 @@ export default function DashboardPage() {
           <button>Log out</button>
         </div>
       </div>
-      <div className={"flex px-10 gap-10 max-h-full"}>
-        <div className={"basis-1/2"}>
+      <div className={"flex px-10 gap-10 max-h-[calc(100%-74px)]"}>
+        <div className={"basis-1/2 h-full"}>
           <ApplicationList selectedApplication={selectedApplication} setSelectedApplication={setSelectedApplication}/>
         </div>
         <div className={"basis-1/2  h-full overflow-y-scroll no-scrollbar"}>
