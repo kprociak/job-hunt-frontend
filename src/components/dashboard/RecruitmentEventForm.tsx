@@ -10,9 +10,11 @@ import {FlashMessageContext} from "../flashMessages/FlashMessagePovider";
 interface RecruitmentEventFormProps {
   JobApplicationId: number;
   type: RecruitmentEventType;
+  typeName?: string;
+  setType: (type: RecruitmentEventType | null) => void;
 }
 
-export default function RecruitmentEventForm({JobApplicationId, type}: RecruitmentEventFormProps) {
+export default function RecruitmentEventForm({JobApplicationId, type, typeName, setType}: RecruitmentEventFormProps) {
   const [date, setDate] = React.useState<string>(format(new Date(), "yyyy-MM-dd"));
   const [time, setTime] = React.useState<string>(format(new Date(), "HH:mm"));
   const [location, setLocation] = React.useState<string>("");
@@ -36,6 +38,7 @@ export default function RecruitmentEventForm({JobApplicationId, type}: Recruitme
       notes: notes
     });
 
+    setType(null);
   }
 
   useEffect(() => {
@@ -51,7 +54,8 @@ export default function RecruitmentEventForm({JobApplicationId, type}: Recruitme
   }, [isError, isSuccess]);
 
   return (
-    <div>
+    <div className={"mb-10"}>
+      <h3 className={"text-xl mt-4"}>Add {typeName || "event"}</h3>
       <form onSubmit={handleSubmit}>
         <div className={"flex gap-6"}>
           <div>
@@ -64,7 +68,15 @@ export default function RecruitmentEventForm({JobApplicationId, type}: Recruitme
               <TextInput label={"Location"} placeholder={"Location"} value={location} onChange={setLocation} />
               <TextInput label={"URL"} placeholder={"URL"} value={url} onChange={setEventUrl} />
             </div>
-            <div className={"flex justify-end"}>
+            <div className={"flex justify-end pb-3"}>
+              <Button
+                title={"Cancel"}
+                onClick={() => setType(null)}
+                className={"bg-gray-400 mr-2"}
+                disabled={isLoading}
+              >
+                Cancel
+              </Button>
               <Button title={"Add Event"} type={"submit"} disabled={isLoading} className={"self-end"}>
                 Add Event
               </Button>

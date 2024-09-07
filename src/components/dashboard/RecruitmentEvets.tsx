@@ -51,11 +51,11 @@ export default function RecruitmentEvents({JobApplicationId}: RecruitmentEventsP
       </div>
       {addEventType && (
         <div>
-          <div className={"flex justify-between"}>
-            <span></span>
-            <button onClick={() =>setAddEventType(null)}>x</button>
-          </div>
-          <RecruitmentEventForm type={addEventType} JobApplicationId={JobApplicationId}/>
+          <RecruitmentEventForm
+            type={addEventType}
+            JobApplicationId={JobApplicationId}
+            setType={setAddEventType} typeName={eventTypes.find((eventType) => eventType.type === addEventType)?.label || ""}
+          />
         </div>
       )}
       <RecruitmentEventList JobApplicationId={JobApplicationId} />
