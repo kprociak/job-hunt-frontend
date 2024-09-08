@@ -47,7 +47,7 @@ export default function DashboardPage() {
         <div className={"basis-1/2 h-full"}>
           <ApplicationList selectedApplication={selectedApplication} setSelectedApplication={setSelectedApplication}/>
         </div>
-        <div className={"basis-1/2  h-full overflow-y-scroll no-scrollbar"}>
+        <div className={"basis-1/2  h-full overflow-y-scroll no-scrollbar px-1"}>
           {selectedApplication ? (
             <ApplicationDetails application={selectedApplication} />
           ) : (

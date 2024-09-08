@@ -80,8 +80,8 @@ export default function NewApplicationForm(){
           label={"Provided expected salary"}
           from={expectedSalaryFrom}
           to={expectedSalaryTo}
-          onFromChange={setOfferSalaryFrom}
-          onToChange={setOfferSalaryTo}
+          onFromChange={setExpectedSalaryFrom}
+          onToChange={setExpectedSalaryTo}
         />
         <Textarea label={"Notes"} value={notes} onChange={setNotes} />
         <Button type={"submit"} disabled={isLoading}>Submit</Button>

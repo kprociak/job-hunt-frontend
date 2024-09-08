@@ -76,6 +76,15 @@ export default function ApplicationList({selectedApplication, setSelectedApplica
             ))}
           </select>
         </div>
+        <div>
+          {
+            // @ts-ignore
+            applications?.jobApplications?.length && (
+              // @ts-ignore
+              <span>Showing {filteredApplications().length}/{applications?.jobApplications?.length}</span>
+            )
+          }
+        </div>
         <Button onClick={() => setSelectedApplication(null)}>Add new application</Button>
       </div>
       {isLoading ?
