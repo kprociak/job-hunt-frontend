@@ -13,8 +13,8 @@ export default function NewApplicationForm(){
   const [jobTitle, setJobTitle] = useState("");
   const [offerUrl, setOfferUrl] = useState("");
   const [applicationDate, setApplicationDate] = useState(format(new Date(), "yyyy-MM-dd"));
-  const [offeredSalaryFrom, setOfferSalaryFrom] = useState(0);
-  const [offeredSalaryTo, setOfferSalaryTo] = useState(0);
+  const [offerSalaryFrom, setOfferSalaryFrom] = useState(0);
+  const [offerSalaryTo, setOfferSalaryTo] = useState(0);
   const [expectedSalaryFrom, setExpectedSalaryFrom] = useState(0);
   const [expectedSalaryTo, setExpectedSalaryTo] = useState(0);
   const [notes, setNotes] = useState("");
@@ -32,8 +32,8 @@ export default function NewApplicationForm(){
       job_title: jobTitle,
       offer_url: offerUrl,
       application_date: applicationDate,
-      offered_salary_from :offeredSalaryFrom,
-      offered_salary_to: offeredSalaryTo,
+      offer_salary_from :offerSalaryFrom,
+      offer_salary_to: offerSalaryTo,
       expected_salary_from: expectedSalaryFrom,
       expected_salary_to: expectedSalaryTo,
       notes
@@ -70,8 +70,8 @@ export default function NewApplicationForm(){
         <TextInput label={"Application Date"} placeholder={"Application Date"} value={applicationDate} onChange={setApplicationDate} type={"date"} />
         <SalaryInput
           label={"Salary from the offer"}
-          from={offeredSalaryFrom}
-          to={offeredSalaryTo}
+          from={offerSalaryFrom}
+          to={offerSalaryTo}
           onFromChange={setOfferSalaryFrom}
           onToChange={setOfferSalaryTo}
 

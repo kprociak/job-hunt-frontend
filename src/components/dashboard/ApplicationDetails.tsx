@@ -57,7 +57,7 @@ export default function ApplicationDetails({application}: ApplicationDetailsProp
         <ApplicationDetailsField label={"Position"} value={application.job_title} />
         <ApplicationDetailsField label={"Offer URL"} value={application.offer_url} isLink={true}/>
         <ApplicationDetailsField label={"Status"} value={application.status} />
-        <ApplicationSalaryField label={"Offered salary"} from={application.offered_salary_from} to={application.offered_salary_to} />
+        <ApplicationSalaryField label={"Offered salary"} from={application.offer_salary_from} to={application.offer_salary_to} />
         <ApplicationSalaryField label={"Expected salary"} from={application.expected_salary_from} to={application.expected_salary_to} />
       </div>
       <div>
