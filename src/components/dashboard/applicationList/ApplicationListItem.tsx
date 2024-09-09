@@ -10,9 +10,9 @@ export default function ApplicationListItem({application, selected, onClick}: Ap
 
   const colors = {
     new: 'bg-gray-50',
-    ongoing: 'bg-yellow-50',
+    ongoing: 'bg-green-50',
     rejected: 'bg-red-50',
-    accepted: 'bg-green-50',
+    accepted: 'bg-purple-50',
   }
 
   return (
@@ -24,10 +24,11 @@ export default function ApplicationListItem({application, selected, onClick}: Ap
         <h3 className={"text-lg font-semibold"}>{application.company_name}</h3>
         <h4>{application.job_title}</h4>
       </div>
-      <div>
-        <p>Status: {application.status}</p>
-        <p>Application Date: {application.application_date}</p>
+      <div className={"text-sm"}>
+        <p>Status: <span className={"font-semibold"}>{application.status}</span></p>
+        <p>Application Date: <span className={"font-semibold"}>{application.application_date}</span></p>
+        <p>Last update: <span className={"font-semibold"}>{application.last_update_date}</span></p>
       </div>
     </div>
-  );
+);
 }

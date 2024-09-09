@@ -17,6 +17,7 @@ export default function RecruitmentEventList({JobApplicationId}: RecruitmentEven
         <div className={"max-w-xl flex flex-col gap-2 mt-4"}>
           {data?.recruitmentEvents?.map((event: RecruitmentEvent) => (
             <RecruitmentEventListItem
+              key={event.id}
               event={event}
               setSelectedEventId={setSelectedEventId}
               selectedEventId={selectedEventId}
