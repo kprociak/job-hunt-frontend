@@ -7,8 +7,8 @@ export type JobApplication = {
   status: "new" | "ongoing" | "rejected" | "accepted";
   application_date: string;
   notes: string;
-  offer_salary_from: number;
-  offer_salary_to: number;
+  offered_salary_from: number;
+  offered_salary_to: number;
   expected_salary_from: number;
   expected_salary_to: number;
   last_update_date: string;

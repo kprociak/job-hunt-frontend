@@ -4,14 +4,13 @@ import {useNavigate} from "react-router-dom";
 import {updateUser} from "../redux/slices/UserSlice";
 import JobApplicationSlice from "../redux/slices/JobApplicationSlice";
 import ApplicationList from "../components/dashboard/applicationList/ApplicationList";
-import NewApplicationForm from "../components/dashboard/newApplicationForm";
+import ApplicationForm from "../components/dashboard/ApplicationForm";
 import ApplicationDetails from "../components/dashboard/ApplicationDetails";
 import {JobApplication} from "../types/JobApplication";
 import useUser from "../hooks/useUser";
 
 export default function DashboardPage() {
-  //@ts-ignore
-  //const user = useSelector((state) => state.user);
+
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -19,6 +18,8 @@ export default function DashboardPage() {
   const [selectedApplication, setSelectedApplication] = useState<JobApplication | null>(null);
 
   const {user, userError} = useUser();
+
+  const [editApplication, setEditApplication] = useState<JobApplication | null>(null);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -48,10 +49,10 @@ export default function DashboardPage() {
           <ApplicationList selectedApplication={selectedApplication} setSelectedApplication={setSelectedApplication}/>
         </div>
         <div className={"basis-1/2  h-full overflow-y-scroll no-scrollbar px-1"}>
-          {selectedApplication ? (
-            <ApplicationDetails application={selectedApplication} />
+          {!selectedApplication || editApplication ? (
+            <ApplicationForm application={editApplication} setSelectedApplication={setEditApplication}/>
           ) : (
-            <NewApplicationForm />
+            <ApplicationDetails application={selectedApplication} setSelectedApplication={setEditApplication}/>
           )}
         </div>
       </div>
