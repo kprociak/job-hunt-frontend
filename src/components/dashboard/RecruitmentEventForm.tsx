@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import TextInput from "../UI/TextInput";
 import {format} from "date-fns";
 import Textarea from "../UI/Textarea";
@@ -15,11 +15,11 @@ interface RecruitmentEventFormProps {
 }
 
 export default function RecruitmentEventForm({JobApplicationId, type, typeName, setType}: RecruitmentEventFormProps) {
-  const [date, setDate] = React.useState<string>(format(new Date(), "yyyy-MM-dd"));
-  const [time, setTime] = React.useState<string>(format(new Date(), "HH:mm"));
-  const [location, setLocation] = React.useState<string>("");
-  const [url, setEventUrl] = React.useState<string>("");
-  const [notes, setNotes] = React.useState<string>("");
+  const [date, setDate] = useState<string>(format(new Date(), "yyyy-MM-dd"));
+  const [time, setTime] = useState<string>("");
+  const [location, setLocation] = useState<string>("");
+  const [url, setEventUrl] = useState<string>("");
+  const [notes, setNotes] = useState<string>("");
 
   const [addRecruitmentEvent, {isLoading, isError, isSuccess}] = useAddRecruitmentEventMutation();
 
@@ -60,7 +60,7 @@ export default function RecruitmentEventForm({JobApplicationId, type, typeName, 
         <div className={"flex gap-6"}>
           <div>
             <TextInput label={"Date"} placeholder={"Date"} value={date} onChange={setDate} type={"date"}/>
-            <TextInput label={"Time"} placeholder={"Time"} value={time} onChange={setTime} />
+            <TextInput label={"Time"} placeholder={"Time"} value={time} onChange={setTime} type={"time"}/>
             <Textarea label={"Notes"} value={notes} onChange={setNotes} />
           </div>
           <div className={"flex flex-col justify-between"}>
@@ -83,9 +83,6 @@ export default function RecruitmentEventForm({JobApplicationId, type, typeName, 
             </div>
           </div>
         </div>
-
-
-
       </form>
     </div>
   );
