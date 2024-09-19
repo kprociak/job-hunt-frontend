@@ -1,5 +1,6 @@
 import React from 'react';
 import {JobApplication} from "../../../types/JobApplication";
+import {formatDistance} from "date-fns";
 
 export interface ApplicationListItemProps {
   application: JobApplication;
@@ -12,8 +13,10 @@ export default function ApplicationListItem({application, selected, onClick}: Ap
     new: 'bg-gray-50',
     ongoing: 'bg-green-50',
     rejected: 'bg-red-50',
-    accepted: 'bg-purple-50',
+    offer: 'bg-purple-50',
   }
+
+  const lastUpdate = formatDistance(new Date(application.last_update_date), new Date(), {addSuffix: true});
 
   return (
     <div
@@ -27,7 +30,7 @@ export default function ApplicationListItem({application, selected, onClick}: Ap
       <div className={"text-sm"}>
         <p>Status: <span className={"font-semibold"}>{application.status}</span></p>
         <p>Application Date: <span className={"font-semibold"}>{application.application_date}</span></p>
-        <p>Last update: <span className={"font-semibold"}>{application.last_update_date}</span></p>
+        <p>Last update: <span className={"font-semibold"}>{lastUpdate}</span></p>
       </div>
     </div>
 );

@@ -4,7 +4,7 @@ export type JobApplication = {
   company_name: string;
   job_title: string;
   offer_url: string;
-  status: "new" | "ongoing" | "rejected" | "accepted";
+  status: "new" | "ongoing" | "rejected" | "offer";
   application_date: string;
   notes: string;
   offered_salary_from: number;
